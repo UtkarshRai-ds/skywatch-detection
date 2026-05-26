@@ -1,0 +1,293 @@
+{
+  "models": {
+    "yolov8n": {
+      "model_name": "yolov8n",
+      "architecture": "YOLOV8N",
+      "params": 3012798,
+      "task": "detect",
+      "best_epoch": 37,
+      "overall": {
+        "mAP50": 0.689,
+        "precision": 0.794,
+        "recall": 0.634,
+        "mAP50_95": 0.426
+      },
+      "per_class_mAP50": {
+        "airplane": 0.561,
+        "ship": 0.782,
+        "storage_tank": 0.895,
+        "baseball_diamond": 0.892,
+        "tennis_court": 0.838,
+        "basketball_court": 0.43,
+        "ground_track_field": 0.579,
+        "harbor": 0.928,
+        "bridge": 0.03,
+        "vehicle": 0.952
+      },
+      "class_ranking": [
+        "vehicle",
+        "harbor",
+        "storage_tank",
+        "baseball_diamond",
+        "tennis_court",
+        "ship",
+        "ground_track_field",
+        "airplane",
+        "basketball_court",
+        "bridge"
+      ],
+      "best_class": "vehicle",
+      "worst_class": "bridge",
+      "speed": {
+        "preprocess_ms": 2.32,
+        "inference_ms": 54.29,
+        "postprocess_ms": 0.71,
+        "total_ms": 57.32,
+        "fps": 17.4,
+        "device": "cpu"
+      }
+    },
+    "yolov8s": {
+      "model_name": "yolov8s",
+      "architecture": "YOLOV8S",
+      "params": 11139470,
+      "task": "detect",
+      "best_epoch": 40,
+      "overall": {
+        "mAP50": 0.697,
+        "precision": 0.743,
+        "recall": 0.69,
+        "mAP50_95": 0.437
+      },
+      "per_class_mAP50": {
+        "airplane": 0.675,
+        "ship": 0.764,
+        "storage_tank": 0.926,
+        "baseball_diamond": 0.901,
+        "tennis_court": 0.841,
+        "basketball_court": 0.422,
+        "ground_track_field": 0.589,
+        "harbor": 0.889,
+        "bridge": 0.027,
+        "vehicle": 0.934
+      },
+      "class_ranking": [
+        "vehicle",
+        "storage_tank",
+        "baseball_diamond",
+        "harbor",
+        "tennis_court",
+        "ship",
+        "airplane",
+        "ground_track_field",
+        "basketball_court",
+        "bridge"
+      ],
+      "best_class": "vehicle",
+      "worst_class": "bridge",
+      "speed": {
+        "preprocess_ms": 2.42,
+        "inference_ms": 136.03,
+        "postprocess_ms": 0.72,
+        "total_ms": 139.17,
+        "fps": 7.2,
+        "device": "cpu"
+      }
+    }
+  },
+  "comparison": {
+    "models": [
+      "yolov8n",
+      "yolov8s"
+    ],
+    "overall_delta": {
+      "mAP50": {
+        "yolov8n": 0.689,
+        "yolov8s": 0.697,
+        "delta": 0.008,
+        "delta_pct": 1.16
+      },
+      "precision": {
+        "yolov8n": 0.794,
+        "yolov8s": 0.743,
+        "delta": -0.051,
+        "delta_pct": -6.42
+      },
+      "recall": {
+        "yolov8n": 0.634,
+        "yolov8s": 0.69,
+        "delta": 0.056,
+        "delta_pct": 8.83
+      },
+      "mAP50_95": {
+        "yolov8n": 0.426,
+        "yolov8s": 0.437,
+        "delta": 0.011,
+        "delta_pct": 2.58
+      }
+    },
+    "per_class_delta": {
+      "airplane": {
+        "yolov8n": 0.561,
+        "yolov8s": 0.675,
+        "delta": 0.114
+      },
+      "baseball_diamond": {
+        "yolov8n": 0.892,
+        "yolov8s": 0.901,
+        "delta": 0.009
+      },
+      "basketball_court": {
+        "yolov8n": 0.43,
+        "yolov8s": 0.422,
+        "delta": -0.008
+      },
+      "bridge": {
+        "yolov8n": 0.03,
+        "yolov8s": 0.027,
+        "delta": -0.003
+      },
+      "ground_track_field": {
+        "yolov8n": 0.579,
+        "yolov8s": 0.589,
+        "delta": 0.01
+      },
+      "harbor": {
+        "yolov8n": 0.928,
+        "yolov8s": 0.889,
+        "delta": -0.039
+      },
+      "ship": {
+        "yolov8n": 0.782,
+        "yolov8s": 0.764,
+        "delta": -0.018
+      },
+      "storage_tank": {
+        "yolov8n": 0.895,
+        "yolov8s": 0.926,
+        "delta": 0.031
+      },
+      "tennis_court": {
+        "yolov8n": 0.838,
+        "yolov8s": 0.841,
+        "delta": 0.003
+      },
+      "vehicle": {
+        "yolov8n": 0.952,
+        "yolov8s": 0.934,
+        "delta": -0.018
+      }
+    },
+    "sorted_by_impact": [
+      "airplane",
+      "harbor",
+      "storage_tank",
+      "ship",
+      "vehicle",
+      "ground_track_field",
+      "baseball_diamond",
+      "basketball_court",
+      "bridge",
+      "tennis_court"
+    ],
+    "classes_b_wins": [
+      "airplane",
+      "baseball_diamond",
+      "ground_track_field",
+      "storage_tank",
+      "tennis_court"
+    ],
+    "classes_a_wins": [
+      "basketball_court",
+      "bridge",
+      "harbor",
+      "ship",
+      "vehicle"
+    ],
+    "param_ratio": 3.7,
+    "mAP50_per_million_params": {
+      "yolov8n": 0.2287,
+      "yolov8s": 0.0626
+    },
+    "winner_mAP50": "yolov8s",
+    "recommendation": "Deploy yolov8s for maximum accuracy (mAP50 0.697, +0.008 over yolov8n). yolov8n offers 3.7\u00d7 fewer parameters with 0.229 mAP50/M-params vs 0.063 for yolov8s \u2014 prefer yolov8n for edge or latency-constrained deployments."
+  },
+  "speed_accuracy_tradeoff": [
+    {
+      "model_name": "yolov8n",
+      "mAP50": 0.689,
+      "mAP50_95": 0.426,
+      "params_M": 3.01,
+      "params_label": "3.0M",
+      "total_ms": 57.32,
+      "fps": 17.4,
+      "device": "cpu"
+    },
+    {
+      "model_name": "yolov8s",
+      "mAP50": 0.697,
+      "mAP50_95": 0.437,
+      "params_M": 11.14,
+      "params_label": "11.1M",
+      "total_ms": 139.17,
+      "fps": 7.2,
+      "device": "cpu"
+    }
+  ],
+  "challenging_classes": {
+    "threshold": 0.5,
+    "challenging_classes": [
+      "basketball_court",
+      "bridge"
+    ],
+    "per_model_low": {
+      "yolov8n": [
+        "basketball_court",
+        "bridge"
+      ],
+      "yolov8s": [
+        "basketball_court",
+        "bridge"
+      ]
+    },
+    "analysis": "basketball_court: yolov8n=0.430, yolov8s=0.422 | bridge: yolov8n=0.030, yolov8s=0.027"
+  },
+  "prediction_summary": {
+    "yolov8n": {
+      "images_processed": 15,
+      "total_detections": 39,
+      "avg_detections_per_image": 2.6,
+      "images_with_no_detections": 3,
+      "class_frequency": {
+        "baseball diamond": 2,
+        "bridge": 1,
+        "harbor": 1,
+        "vehicle": 6,
+        "basketball court": 4,
+        "airplane": 1,
+        "tennis court": 3
+      },
+      "avg_confidence": 0.763,
+      "min_confidence": 0.308,
+      "max_confidence": 0.983
+    },
+    "yolov8s": {
+      "images_processed": 15,
+      "total_detections": 37,
+      "avg_detections_per_image": 2.47,
+      "images_with_no_detections": 1,
+      "class_frequency": {
+        "baseball diamond": 2,
+        "bridge": 2,
+        "harbor": 1,
+        "vehicle": 6,
+        "basketball court": 6,
+        "airplane": 1,
+        "tennis court": 2
+      },
+      "avg_confidence": 0.694,
+      "min_confidence": 0.259,
+      "max_confidence": 0.927
+    }
+  }
+}
