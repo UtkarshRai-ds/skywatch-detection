@@ -1,0 +1,163 @@
+{
+  "loader": {
+    "data_dir": "C:\\Users\\Utkarsh Rai\\Skywatch-Detection\\data\\raw",
+    "structure_valid": true,
+    "structure_checks": {
+      "train/images": true,
+      "train/labels": true,
+      "valid/images": true,
+      "valid/labels": true,
+      "test/images": true,
+      "test/labels": true,
+      "data.yaml": true
+    },
+    "file_counts": {
+      "train": {
+        "images": 560,
+        "labels": 560
+      },
+      "valid": {
+        "images": 160,
+        "labels": 160
+      },
+      "test": {
+        "images": 80,
+        "labels": 80
+      }
+    },
+    "total_images": 800,
+    "total_labels": 800,
+    "yaml_config": {
+      "nc": 10,
+      "names": [
+        "airplane",
+        "ship",
+        "storage tank",
+        "baseball diamond",
+        "tennis court",
+        "basketball court",
+        "ground track field",
+        "harbor",
+        "bridge",
+        "vehicle"
+      ],
+      "train_path": "../train/images",
+      "val_path": "../valid/images",
+      "test_path": "../test/images"
+    },
+    "class_ids_found": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "all_classes_present": true,
+    "missing_class_ids": []
+  },
+  "quality": {
+    "all_passed": true,
+    "checks_passed": 5,
+    "checks_total": 5,
+    "results": [
+      {
+        "check": "image_counts",
+        "passed": true,
+        "details": {
+          "train": {
+            "count": 560,
+            "minimum_expected": 400,
+            "passed": true
+          },
+          "valid": {
+            "count": 160,
+            "minimum_expected": 100,
+            "passed": true
+          },
+          "test": {
+            "count": 80,
+            "minimum_expected": 50,
+            "passed": true
+          }
+        },
+        "summary": "All splits meet minimum image count thresholds."
+      },
+      {
+        "check": "annotation_parity",
+        "passed": true,
+        "details": {
+          "train": {
+            "image_count": 560,
+            "label_count": 560,
+            "images_without_labels": [],
+            "labels_without_images": [],
+            "passed": true
+          },
+          "valid": {
+            "image_count": 160,
+            "label_count": 160,
+            "images_without_labels": [],
+            "labels_without_images": [],
+            "passed": true
+          },
+          "test": {
+            "image_count": 80,
+            "label_count": 80,
+            "images_without_labels": [],
+            "labels_without_images": [],
+            "passed": true
+          }
+        },
+        "summary": "Every image has a matching label file."
+      },
+      {
+        "check": "class_coverage",
+        "passed": true,
+        "details": {
+          "expected_classes": 10,
+          "found_class_count": 10,
+          "present_classes": [
+            "airplane",
+            "ship",
+            "storage tank",
+            "baseball diamond",
+            "tennis court",
+            "basketball court",
+            "ground track field",
+            "harbor",
+            "bridge",
+            "vehicle"
+          ],
+          "missing_classes": [],
+          "missing_class_ids": []
+        },
+        "summary": "All 10 classes present."
+      },
+      {
+        "check": "image_readability",
+        "passed": true,
+        "details": {
+          "images_sampled": 82,
+          "corrupt_images": [],
+          "corrupt_count": 0
+        },
+        "summary": "All 82 sampled images are readable."
+      },
+      {
+        "check": "bbox_validity",
+        "passed": true,
+        "details": {
+          "total_annotations": 4811,
+          "invalid_count": 0,
+          "invalid_examples": []
+        },
+        "summary": "All 4811 annotations have valid YOLO coordinates."
+      }
+    ]
+  }
+}
