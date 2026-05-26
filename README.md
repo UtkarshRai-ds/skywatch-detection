@@ -5,7 +5,7 @@
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-green.svg)](https://github.com/ultralytics/ultralytics)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.37-ff4b4b.svg)](https://streamlit.io)
-[![CI](https://img.shields.io/github/actions/workflow/status/utkarsh26rai/skywatch-detection/ci.yml?label=CI)](https://github.com/utkarsh26rai/skywatch-detection/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/utkarsh26rai/skywatch-detection/ci.yml?branch=master&label=CI)](https://github.com/utkarsh26rai/skywatch-detection/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 End-to-end computer vision pipeline that detects 10 object classes in very-high-resolution satellite imagery. Covers data validation, exploratory analysis, model training on Colab T4, rigorous evaluation, and a five-page interactive dashboard with live inference.
