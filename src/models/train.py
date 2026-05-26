@@ -90,7 +90,7 @@ def fix_data_yaml(yaml_path: str | Path) -> Path:
         cfg = yaml.safe_load(fh)
 
     cfg["names"] = NWPU_CLASSES
-    cfg["nc"]    = len(NWPU_CLASSES)
+    cfg["nc"] = len(NWPU_CLASSES)
 
     with yaml_path.open("w", encoding="utf-8") as fh:
         yaml.dump(cfg, fh, default_flow_style=False, allow_unicode=True)
@@ -142,9 +142,11 @@ def train_model(
         except ImportError:
             logger.warning("wandb not installed — skipping W&B logging.")
 
-    logger.info("Starting training: %s  epochs=%d  batch=%d", model_name, cfg["epochs"], cfg["batch"])
+    logger.info(
+        "Starting training: %s  epochs=%d  batch=%d", model_name, cfg["epochs"], cfg["batch"]
+    )
     model = YOLO(weights)
-    results = model.train(**cfg, project=str(output_dir))
+    model.train(**cfg, project=str(output_dir))
 
     # Locate best checkpoint
     best_pt = Path(output_dir) / model_name / "weights" / "best.pt"

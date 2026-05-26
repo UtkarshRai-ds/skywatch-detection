@@ -15,8 +15,6 @@ from __future__ import annotations
 
 from typing import Any
 
-from src.data.loader import NWPU_CLASSES
-
 
 def compare_models(
     results_a: dict[str, Any],
@@ -97,7 +95,7 @@ def compare_models(
     eff_b = round(ov_b["mAP50"] / params_b_m, 4) if params_b_m > 0 else 0.0
 
     winner = name_b if ov_b["mAP50"] >= ov_a["mAP50"] else name_a
-    loser  = name_a if winner == name_b else name_b
+    loser = name_a if winner == name_b else name_b
 
     map_delta = overall_delta["mAP50"]["delta"]
     param_ratio = round(results_b["params"] / max(results_a["params"], 1), 2)

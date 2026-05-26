@@ -118,9 +118,9 @@ def run_predictions(
     """
     from ultralytics import YOLO
 
-    model_path  = Path(model_path)
-    image_dir   = Path(image_dir)
-    output_dir  = Path(output_dir)
+    model_path = Path(model_path)
+    image_dir = Path(image_dir)
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     all_images: list[Path] = sorted(image_dir.glob("*.jpg")) + sorted(image_dir.glob("*.png"))
@@ -144,8 +144,8 @@ def run_predictions(
         spd_ms = round(res.speed["inference"], 2)
 
         boxes_xyxy: list[tuple[int, int, int, int]] = []
-        class_ids:   list[int]   = []
-        confs:       list[float] = []
+        class_ids: list[int] = []
+        confs: list[float] = []
 
         if res.boxes is not None and len(res.boxes):
             for box in res.boxes:
@@ -195,9 +195,9 @@ def summarise_predictions(results_log: list[dict[str, Any]]) -> dict[str, Any]:
     """
     from collections import Counter
 
-    total_dets  = sum(r["n_detections"] for r in results_log)
+    total_dets = sum(r["n_detections"] for r in results_log)
     all_classes: list[str] = []
-    all_confs:   list[float] = []
+    all_confs: list[float] = []
     no_det = 0
 
     for r in results_log:
@@ -208,12 +208,12 @@ def summarise_predictions(results_log: list[dict[str, Any]]) -> dict[str, Any]:
 
     n = len(results_log)
     return {
-        "images_processed":         n,
-        "total_detections":         total_dets,
+        "images_processed": n,
+        "total_detections": total_dets,
         "avg_detections_per_image": round(total_dets / n, 2) if n else 0.0,
         "images_with_no_detections": no_det,
-        "class_frequency":          dict(Counter(all_classes)),
-        "avg_confidence":           round(sum(all_confs) / len(all_confs), 3) if all_confs else 0.0,
-        "min_confidence":           round(min(all_confs), 3) if all_confs else 0.0,
-        "max_confidence":           round(max(all_confs), 3) if all_confs else 0.0,
+        "class_frequency": dict(Counter(all_classes)),
+        "avg_confidence": round(sum(all_confs) / len(all_confs), 3) if all_confs else 0.0,
+        "min_confidence": round(min(all_confs), 3) if all_confs else 0.0,
+        "max_confidence": round(max(all_confs), 3) if all_confs else 0.0,
     }

@@ -260,7 +260,10 @@ def check_bbox_validity(data_dir: Path) -> dict[str, Any]:
                     continue
 
                 try:
-                    _, cx, cy, w, h = float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]), float(parts[4])
+                    _, cx, cy, w, h = (
+                        float(parts[0]), float(parts[1]), float(parts[2]),
+                        float(parts[3]), float(parts[4]),
+                    )
                 except ValueError:
                     invalid_count += 1
                     if len(invalid_examples) < 20:

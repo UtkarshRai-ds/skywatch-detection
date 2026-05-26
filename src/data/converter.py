@@ -226,7 +226,9 @@ class VocToYoloConverter:
         for class_name, bbox in annotation.objects:
             class_id = self._class_map.get(class_name)
             if class_id is None:
-                logger.warning("Unknown class '%s' in %s — skipping object.", class_name, xml_path.name)
+                logger.warning(
+                    "Unknown class '%s' in %s — skipping object.", class_name, xml_path.name
+                )
                 skipped += 1
                 continue
 

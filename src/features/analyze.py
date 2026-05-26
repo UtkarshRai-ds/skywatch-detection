@@ -25,7 +25,6 @@ Typical usage::
 
 from __future__ import annotations
 
-import math
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -152,7 +151,9 @@ def class_distribution(data_dir: str | Path) -> dict[str, Any]:
         images_per_class[name] = n_img
         avg_instances_per_image[name] = round(n_inst / n_img, 3) if n_img > 0 else 0.0
 
-    class_order = sorted(instances_per_class, key=instances_per_class.get, reverse=True)  # type: ignore[arg-type]
+    class_order = sorted(  # type: ignore[arg-type]
+        instances_per_class, key=instances_per_class.get, reverse=True
+    )
 
     return {
         "instances_per_class": instances_per_class,
@@ -258,13 +259,17 @@ def bbox_analysis(data_dir: str | Path) -> dict[str, Any]:
         per_class_h[ann["class_id"]].append(h)
 
     per_class_median_area: dict[str, float] = {
-        NWPU_CLASSES[i]: round(float(np.median(np.array(per_class_w[i]) * np.array(per_class_h[i]))), 6)
+        NWPU_CLASSES[i]: round(
+            float(np.median(np.array(per_class_w[i]) * np.array(per_class_h[i]))), 6
+        )
         for i in range(len(NWPU_CLASSES))
         if per_class_w[i]
     }
     per_class_median_ar: dict[str, float] = {
         NWPU_CLASSES[i]: round(
-            float(np.median(np.array(per_class_w[i]) / np.maximum(np.array(per_class_h[i]), 1e-9))), 4
+            float(
+                np.median(np.array(per_class_w[i]) / np.maximum(np.array(per_class_h[i]), 1e-9))
+            ), 4
         )
         for i in range(len(NWPU_CLASSES))
         if per_class_w[i]
@@ -277,7 +282,9 @@ def bbox_analysis(data_dir: str | Path) -> dict[str, Any]:
             "w": round(annotations[i]["w"], 5),
             "h": round(annotations[i]["h"], 5),
             "area": round(annotations[i]["w"] * annotations[i]["h"], 6),
-            "ar": round(annotations[i]["w"] / annotations[i]["h"] if annotations[i]["h"] > 0 else 0, 4),
+            "ar": round(
+                annotations[i]["w"] / annotations[i]["h"] if annotations[i]["h"] > 0 else 0, 4
+            ),
             "class_name": NWPU_CLASSES[annotations[i]["class_id"]],
         }
         for i in sample_idx.tolist()
@@ -379,8 +386,8 @@ def cooccurrence_matrix(data_dir: str | Path) -> dict[str, Any]:
     matrix: list[list[int]] = [[0] * 10 for _ in range(10)]
 
     for _, lf in _collect_label_files(data_dir):
-        lines = [l.strip() for l in lf.read_text(encoding="utf-8").splitlines() if l.strip()]
-        cids = [int(l.split()[0]) for l in lines if l.split()]
+        lines = [lbl.strip() for lbl in lf.read_text(encoding="utf-8").splitlines() if lbl.strip()]
+        cids = [int(lbl.split()[0]) for lbl in lines if lbl.split()]
         for i in cids:
             for j in cids:
                 if 0 <= i < 10 and 0 <= j < 10:

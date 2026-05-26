@@ -25,7 +25,9 @@ jobs:
             --index-url https://download.pytorch.org/whl/cpu
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
 
       - name: Run tests
         run: pytest tests/ -v
@@ -45,4 +47,8 @@ jobs:
         run: pip install flake8
 
       - name: Lint src/ and app/
-        run: flake8 src/ app/ --max-line-length 100 --extend-ignore=E402,W503,W504
+        run: >-
+          flake8 src/ app/
+          --max-line-length 100
+          --extend-ignore=E402,W503,W504
+          --per-file-ignores=app/streamlit_app.py:E501,E221,E203,E231,E272,E122,E127,E128

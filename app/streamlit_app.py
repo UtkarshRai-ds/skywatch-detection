@@ -641,7 +641,7 @@ The project follows a complete MLOps pipeline:
 
     st.markdown("<br>", unsafe_allow_html=True)
     _section("Links")
-    st.markdown(f"""
+    st.markdown("""
 | Resource | Link |
 |---|---|
 | 📓 W&B Dashboard | *[Replace with your W&B run URL]* |
@@ -666,7 +666,6 @@ def page_eda() -> None:
     spat = eda.get("spatial_heatmap", {})
     cooc = eda.get("cooccurrence_matrix", {})
     res  = eda.get("image_resolution", {})
-    neg  = eda.get("negative_images", {})
     lo   = ds.get("loader", {})
 
     st.title("Explore the Data")
@@ -795,7 +794,6 @@ def page_results() -> None:
 
     # ── Comparison table ───────────────────────────────────────────────────────
     _section("Overall Comparison", "Winner highlighted in green")
-    winner = comp.get("winner_mAP50", "yolov8s")
 
     def _cell(val: str, is_winner: bool) -> str:
         cls = "winner" if is_winner else "loser"
@@ -1156,7 +1154,7 @@ def page_live_detection() -> None:
         _fig(det_fig, height=280)
 
         # Show frame gallery
-        st.markdown(f'<div class="section-title">Annotated Frame Gallery</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-title">Annotated Frame Gallery</div>', unsafe_allow_html=True)
         n_show = min(15, len(annotated_frames))
         cols = st.columns(3)
         for i, frame in enumerate(annotated_frames[:n_show]):

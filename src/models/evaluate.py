@@ -20,7 +20,6 @@ Typical usage::
 from __future__ import annotations
 
 import csv
-import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -109,10 +108,10 @@ def measure_inference_speed(
         inf_ms.append(spd["inference"])
         post_ms.append(spd["postprocess"])
 
-    avg_pre  = float(sum(pre_ms)  / len(pre_ms))
-    avg_inf  = float(sum(inf_ms)  / len(inf_ms))
+    avg_pre = float(sum(pre_ms) / len(pre_ms))
+    avg_inf = float(sum(inf_ms) / len(inf_ms))
     avg_post = float(sum(post_ms) / len(post_ms))
-    total    = avg_pre + avg_inf + avg_post
+    total = avg_pre + avg_inf + avg_post
 
     return {
         "preprocess_ms":  round(avg_pre,  2),
@@ -197,8 +196,8 @@ def build_test_results(
         },
         "per_class_mAP50": per_class_norm,
         "class_ranking":   [name for name, _ in sorted_classes],
-        "best_class":      sorted_classes[0][0]  if sorted_classes else None,
-        "worst_class":     sorted_classes[-1][0] if sorted_classes else None,
+        "best_class": sorted_classes[0][0] if sorted_classes else None,
+        "worst_class": sorted_classes[-1][0] if sorted_classes else None,
         "speed": speed or {},
     }
 
@@ -239,7 +238,6 @@ def run_live_val(
         verbose=False,
     )
 
-    maps = val_results.maps  # per-class mAP50-95 array
     ap50 = val_results.ap_class_index  # class indices
 
     per_class: dict[str, float] = {}
