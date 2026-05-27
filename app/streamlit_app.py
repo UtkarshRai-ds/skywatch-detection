@@ -177,6 +177,10 @@ def _inject_css() -> None:
 
     /* ── hide Streamlit branding ── */
     #MainMenu, footer {{ visibility: hidden; }}
+    /* ── prevent layout shift ── */
+    [data-testid="stMetric"] {{ min-height: 80px; }}
+    .block-container {{ overflow-x: hidden; }}
+    iframe {{ display: block; }}
     </style>
     """, unsafe_allow_html=True)
 
