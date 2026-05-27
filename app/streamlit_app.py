@@ -420,11 +420,17 @@ def _draw_yolo_labels(img: np.ndarray, label_path: Path) -> np.ndarray:
 
 @st.cache_data
 def _load_test_sample_images(n: int = 6) -> list[np.ndarray]:
-    """Load n test images with YOLO ground-truth overlays."""
+    """Load n test images with YOLO ground-truth overlays. Falls back to val set."""
     test_img_dir = DATA_DIR / "raw" / "test" / "images"
     test_lbl_dir = DATA_DIR / "raw" / "test" / "labels"
+
+    if not test_img_dir.exists() or not any(test_img_dir.glob("*.jpg")):
+        test_img_dir = DATA_DIR / "raw" / "val" / "images"
+        test_lbl_dir = DATA_DIR / "raw" / "val" / "labels"
+
     if not test_img_dir.exists():
         return []
+
     paths = sorted(test_img_dir.glob("*.jpg"))[:n]
     result = []
     for p in paths:
@@ -435,7 +441,6 @@ def _load_test_sample_images(n: int = 6) -> list[np.ndarray]:
         annotated = _draw_yolo_labels(frame, test_lbl_dir / (p.stem + ".txt"))
         result.append(annotated)
     return result
-
 
 def _chart_per_class_map50(cs: dict) -> go.Figure:
     n_pc = cs["models"]["yolov8n"]["per_class_mAP50"]
@@ -770,7 +775,7 @@ def page_eda() -> None:
         for i, img in enumerate(images):
             cols[i % 3].image(img, use_container_width=True, caption=f"Test image {i + 1}")
     else:
-        st.warning("Test images not found at data/raw/test/images/.")
+        st.info("📂 Sample test images are not available in this deployment.")
 
 
 # ── Page 3 — Model Results ──────────────────────────────────────────────────────
