@@ -1,3 +1,13 @@
+---
+title: Skywatch Detection
+emoji: 🛰️
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+app_port: 8501
+---
+
 # SkyWatch Detection
 
 > **Satellite object detection on the NWPU VHR-10 dataset using YOLOv8 — from raw annotations to a live-inference Streamlit dashboard.**
