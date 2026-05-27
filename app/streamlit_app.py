@@ -207,7 +207,7 @@ def _badges(names: list[str]) -> None:
 def _fig(fig: go.Figure, height: int = 380) -> None:
     """Render a Plotly figure with consistent dark settings."""
     fig.update_layout(height=height, **_LAYOUT)
-    st.plotly_chart(fig, use_column_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 
 def _img_row(image_paths: list[Path], captions: list[str] | None = None, cols: int = 3) -> None:
@@ -218,7 +218,7 @@ def _img_row(image_paths: list[Path], captions: list[str] | None = None, cols: i
         c = st.columns(cols)
         for col, path, cap in zip(c, row_paths, row_caps):
             if path.exists():
-                col.image(str(path), caption=cap, use_column_width=True)
+                col.image(str(path), caption=cap, use_container_width=True)
             else:
                 col.warning(f"Missing: {path.name}")
 
@@ -768,7 +768,7 @@ def page_eda() -> None:
     if images:
         cols = st.columns(3)
         for i, img in enumerate(images):
-            cols[i % 3].image(img, use_column_width=True, caption=f"Test image {i + 1}")
+            cols[i % 3].image(img, use_container_width=True, caption=f"Test image {i + 1}")
     else:
         st.warning("Test images not found at data/raw/test/images/.")
 
@@ -899,11 +899,11 @@ def page_results() -> None:
     if cm_n.exists() or cm_s.exists():
         col1, col2 = st.columns(2)
         if cm_n.exists():
-            col1.image(str(cm_n), caption="YOLOv8n — Confusion Matrix", use_column_width=True)
+            col1.image(str(cm_n), caption="YOLOv8n — Confusion Matrix", use_container_width=True)
         else:
             col1.warning("YOLOv8n confusion matrix not found.")
         if cm_s.exists():
-            col2.image(str(cm_s), caption="YOLOv8s — Confusion Matrix", use_column_width=True)
+            col2.image(str(cm_s), caption="YOLOv8s — Confusion Matrix", use_container_width=True)
         else:
             col2.warning("YOLOv8s confusion matrix not found.")
     else:
@@ -916,9 +916,9 @@ def page_results() -> None:
     if f1_n.exists() or f1_s.exists():
         col1, col2 = st.columns(2)
         if f1_n.exists():
-            col1.image(str(f1_n), caption="YOLOv8n — Box F1 Curve", use_column_width=True)
+            col1.image(str(f1_n), caption="YOLOv8n — Box F1 Curve", use_container_width=True)
         if f1_s.exists():
-            col2.image(str(f1_s), caption="YOLOv8s — Box F1 Curve", use_column_width=True)
+            col2.image(str(f1_s), caption="YOLOv8s — Box F1 Curve", use_container_width=True)
     else:
         st.warning("F1 curve images not found in data/.")
 
@@ -976,7 +976,7 @@ def page_results() -> None:
                     continue
                 cols = st.columns(3)
                 for i, p in enumerate(imgs[:15]):
-                    cols[i % 3].image(str(p), use_column_width=True,
+                    cols[i % 3].image(str(p), use_container_width=True,
                                       caption=p.name.replace(f"{prefix}_", "")[:30])
     else:
         st.warning("data/sample_detections/ not found. Run `python run_evaluation.py`.")
@@ -1076,7 +1076,7 @@ def page_live_detection() -> None:
 
         col_img, col_results = st.columns([2, 1])
         with col_img:
-            st.image(annotated, caption=f"Detections — {len(detections)} objects", use_column_width=True)
+            st.image(annotated, caption=f"Detections — {len(detections)} objects", use_container_width=True)
         with col_results:
             st.metric("Inference time", f"{elapsed_ms:.1f} ms")
             st.metric("Detections", len(detections))
@@ -1158,7 +1158,7 @@ def page_live_detection() -> None:
         n_show = min(15, len(annotated_frames))
         cols = st.columns(3)
         for i, frame in enumerate(annotated_frames[:n_show]):
-            cols[i % 3].image(frame, use_column_width=True, caption=f"Frame {i + 1}")
+            cols[i % 3].image(frame, use_container_width=True, caption=f"Frame {i + 1}")
 
 
 # ── Page 5 — How I Built This ───────────────────────────────────────────────────
