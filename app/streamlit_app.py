@@ -1284,8 +1284,63 @@ The width multiplier scales all channel counts; the depth multiplier scales the 
 repeated C2f blocks. Both models have 73 layers — the "nano" is thinner, not shallower.
 </div>
 """, unsafe_allow_html=True)
+# ── Limitations & Future Work ──────────────────────────────────────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    _section("Limitations & Future Work")
 
-    # ── Links ──────────────────────────────────────────────────────────────────
+    limitations = [
+        (
+            "🔴 Severe Class Imbalance (11.46×)",
+            "Bridge dominates with 11.46× more instances than ship. The model over-predicts "
+            "common classes and achieves near-zero mAP50 on rare ones (bridge mAP50 = 0.03 despite "
+            "being the most frequent class — it is geometrically the hardest). "
+            "Fix: focal loss (γ ≥ 1.5) or class-balanced oversampling.",
+        ),
+        (
+            "🔴 Tiny Object Detection",
+            "Median bounding box area is just 0.61% of image area. At 640×640 resolution, "
+            "small objects like airplanes and vehicles lose critical spatial detail. "
+            "Fix: multi-scale training, higher input resolution (1280×1280), or SAHI (sliced inference).",
+        ),
+        (
+            "🔴 Stretch Resize Distortion",
+            "Roboflow's default 'Stretch' preprocessing distorts aspect ratios of elongated objects "
+            "(bridges, runways). The model learned distorted shapes, hurting generalisation. "
+            "Fix: letterbox padding to preserve aspect ratios in future training runs.",
+        ),
+        (
+            "🟡 Limited Training Data",
+            "Only 800 images across 10 classes (~80 per class on average). This is insufficient "
+            "for robust generalisation to diverse satellite imagery. "
+            "Fix: augment with DIOR, DOTA, or xView datasets for additional diversity.",
+        ),
+        (
+            "🟡 No Hyperparameter Search",
+            "Both models used Ultralytics default hyperparameters. A proper grid or Bayesian search "
+            "over learning rate, mosaic probability, and augmentation strength could yield +3–5% mAP50. "
+            "Fix: use Ultralytics hyperparameter evolution or Optuna.",
+        ),
+        (
+            "🟢 Future: Transformer-Based Detection",
+            "RT-DETR or YOLOv9 with attention mechanisms may better capture global context "
+            "for geospatial scenes where objects appear at arbitrary orientations and scales.",
+        ),
+        (
+            "🟢 Future: Oriented Bounding Boxes (OBB)",
+            "Standard axis-aligned boxes poorly capture rotated objects (runways, ships at angle). "
+            "YOLOv8-OBB supports oriented detection natively and would significantly improve "
+            "precision for elongated classes.",
+        ),
+        (
+            "🟢 Future: MLOps Pipeline",
+            "Automate retraining with GitHub Actions when new data arrives, add model versioning "
+            "via MLflow or W&B Model Registry, and serve via FastAPI + Docker for production deployment.",
+        ),
+    ]
+
+    for title, desc in limitations:
+        with st.expander(title):
+            st.markdown(f'<p style="color:{TEXT};line-height:1.75">{desc}</p>', unsafe_allow_html=True)    # ── Links ──────────────────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     _section("Links")
     st.markdown("""
