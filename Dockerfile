@@ -17,7 +17,6 @@ COPY . .
 
 EXPOSE 8501
 
-CMD ["python", "-m", "streamlit", "run", "streamlit_app.py", \
-     "--server.port=8501", \
-     "--server.address=0.0.0.0", \
-     "--server.headless=true"]
+RUN pip show streamlit && which python
+
+CMD ["/usr/local/bin/python", "-m", "streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
