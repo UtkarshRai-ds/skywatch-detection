@@ -246,7 +246,7 @@ Both training runs were tracked with [Weights & Biases](https://wandb.ai). W&B a
 - Sample detection images with bounding box overlays
 - Full hyperparameter configuration
 
-[View W&B Dashboard](ADD_WANDB_URL_HERE)
+[🚀 Live Demo on HuggingFace](https://huggingface.co/spaces/Utkarsh-DS/Skywatch-Detection)
 
 ---
 
