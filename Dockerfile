@@ -11,12 +11,12 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
+RUN pip install --no-cache-dir streamlit>=1.37.1
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
 EXPOSE 8501
-
-RUN pip show streamlit && which python
 
 CMD ["/usr/local/bin/python", "-m", "streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
