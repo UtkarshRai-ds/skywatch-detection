@@ -193,7 +193,49 @@ Bridge is the most annotated class yet achieves near-zero detection performance.
 Potential remedies: dedicated bridge anchor priors, rotated bounding boxes (OBB), or a higher-resolution crop strategy for elongated structures.
 
 ---
+## Limitations
 
+### 1. Severe Class Imbalance (11.46×)
+Bridge dominates with 1 421 instances vs ship's 124. Despite being the most annotated class, bridge achieves only **0.03 mAP50** — the model over-predicts common classes and fails on geometrically hard ones. Standard cross-entropy loss does not penalise easy negatives enough to learn rare class boundaries.
+
+### 2. Tiny Object Detection
+Median bounding-box area is **0.61% of image area**. At 640×640 resolution, small objects like airplanes and vehicles lose critical spatial detail during downsampling. The stride-32 feature map (P5) cannot resolve objects smaller than ~20×20 px, which describes a large fraction of this dataset.
+
+### 3. Stretch Resize Distortion
+Roboflow's default 'Stretch' preprocessing resizes all images to 640×640 by distorting aspect ratios. Elongated objects like bridges and runways are compressed horizontally, causing the model to learn distorted shape priors that do not generalise to real-world imagery.
+
+### 4. Limited Training Data
+800 images across 10 classes (~80 per class on average) is insufficient for robust generalisation. The model has seen very few examples of rare configurations (e.g. partially occluded ships, bridges at oblique angles).
+
+### 5. No Hyperparameter Search
+Both models used Ultralytics default hyperparameters. Learning rate, mosaic probability, and augmentation strength were not tuned — a proper search could yield +3–5% mAP50.
+
+### 6. CPU-Only Deployment
+The HuggingFace Space runs on CPU. Inference latency (57–139 ms/image) makes real-time video detection impractical in the current deployment.
+
+---
+
+## Scope of Future Work
+
+### Short Term
+- **Letterbox padding** — replace Roboflow's stretch resize with letterbox to preserve aspect ratios of elongated objects (bridges, runways). Expected improvement: +5–10% mAP50 on bridge class.
+- **Focal loss (γ ≥ 1.5)** — penalise easy negatives more aggressively to force the model to learn rare class boundaries.
+- **Class-balanced sampling** — oversample minority classes (ship, baseball diamond) to reduce the effective imbalance ratio below 3×.
+- **Higher input resolution (1280×1280)** — improves small-object detection at the cost of 4× compute. Feasible on Colab T4 with batch size 4.
+
+### Medium Term
+- **SAHI (Sliced Inference)** — divide large images into overlapping tiles at inference time, run detection on each tile, then merge predictions. Proven to improve small-object recall by 15–20% on satellite imagery.
+- **Oriented Bounding Boxes (OBB)** — YOLOv8-OBB supports rotated boxes natively. Bridges, runways, and ships at arbitrary angles would benefit significantly from angle-aware regression.
+- **Hyperparameter Evolution** — use Ultralytics' built-in evolutionary search or Optuna to tune lr0, lrf, mosaic, and mixup over 100+ trials.
+- **Dataset Expansion** — augment with DIOR (20 classes, 23 463 images) or xView (60 classes, 1 127 images) to improve generalisation across sensor types and geographic regions.
+
+### Long Term
+- **Transformer-Based Detection (RT-DETR / YOLOv9)** — attention mechanisms capture global context better than CNNs for geospatial scenes where objects appear at arbitrary scales and orientations.
+- **MLOps Pipeline** — automate retraining with GitHub Actions when new data arrives; version models via MLflow or W&B Model Registry; serve via FastAPI + Docker for production deployment.
+- **Multi-Temporal Fusion** — combine imagery from multiple timestamps to detect change (new construction, vessel movement) rather than static object presence.
+- **Edge Deployment** — quantise YOLOv8n to INT8 with TensorRT or ONNX Runtime for deployment on satellite ground stations or UAV processors.
+
+---
 ## Weights & Biases
 
 Both training runs were tracked with [Weights & Biases](https://wandb.ai). W&B automatically logged:
