@@ -317,20 +317,38 @@ def _chart_aspect_ratio(scatter: list[dict]) -> go.Figure:
 
 
 def _chart_area_box(scatter: list[dict]) -> go.Figure:
-    fig = go.Figure()
-    for cls in NWPU_CLASSES:
-        areas = [s["area"] * 100 for s in scatter if s["class_name"] == cls]
-        if not areas:
-            continue
-        fig.add_trace(go.Box(
-            y=areas, name=cls,
-            marker_color=CLASS_COLORS[cls], line_color=CLASS_COLORS[cls],
-            boxmean=True,
-        ))
-    fig.update_layout(title="Relative BBox Area per Class (% of image area)",
-                      yaxis_title="Area (%)", showlegend=False, xaxis_tickangle=-30)
-    return fig
+    class_areas: dict[str, list[float]] = {cls: [] for cls in NWPU_CLASSES}
+    for s in scatter:
+        cls = s["class_name"]
+        if cls in class_areas:
+            class_areas[cls].append(s["area"] * 100)
 
+    avg_areas = {cls: (sum(v) / len(v) if v else 0) for cls, v in class_areas.items()}
+    order = sorted(avg_areas, key=avg_areas.get, reverse=True)
+    colors = [CLASS_COLORS.get(cls, ACCENT) for cls in order]
+    values = [round(avg_areas[cls], 2) for cls in order]
+
+    fig = go.Figure(go.Bar(
+        x=[cls.replace("_", " ") for cls in order],
+        y=values,
+        marker_color=colors,
+        text=[f"{v}%" for v in values],
+        textposition="outside",
+        hovertemplate="%{x}<br>Avg area: %{y:.2f}% of image<extra></extra>",
+    ))
+    fig.add_hline(
+        y=sum(values) / len(values),
+        line_dash="dash", line_color=ORANGE,
+        annotation_text=f"avg = {sum(values)/len(values):.2f}%",
+        annotation_font_color=ORANGE,
+    )
+    fig.update_layout(
+        title="Average Object Size per Class (% of image area)",
+        yaxis_title="Avg BBox Area (%)",
+        xaxis_tickangle=-30,
+        yaxis=dict(range=[0, max(values) * 1.25]),
+    )
+    return fig
 
 def _chart_spatial_heatmap(spatial: dict) -> go.Figure:
     fig = make_subplots(
