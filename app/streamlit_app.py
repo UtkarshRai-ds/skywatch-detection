@@ -644,16 +644,6 @@ The project follows a complete MLOps pipeline:
 
     st.markdown(header_html + body_rows + "</tbody></table>", unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    _section("Links")
-    st.markdown("""
-| Resource | Link |
-|---|---|
-| 📓 W&B Dashboard | *[Replace with your W&B run URL]* |
-| 💻 GitHub Repository | *[Replace with your GitHub repo URL]* |
-| 🚀 Live Demo | *This app — deployed on Streamlit Community Cloud* |
-| 📊 Dataset | [NWPU VHR-10 on Roboflow Universe](https://universe.roboflow.com/yolo-7muwp/nwpu-vhr-10-sgj3z) |
-""")
 
 
 # ── Page 2 — Explore the Data ───────────────────────────────────────────────────
