@@ -203,12 +203,10 @@ def _badges(names: list[str]) -> None:
     html = " ".join(f'<span class="badge">{n}</span>' for n in names)
     st.markdown(html, unsafe_allow_html=True)
 
-
 def _fig(fig: go.Figure, height: int = 380) -> None:
     """Render a Plotly figure with consistent dark settings."""
     fig.update_layout(height=height, **_LAYOUT)
-    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False, "responsive": False})
 
 def _img_row(image_paths: list[Path], captions: list[str] | None = None, cols: int = 3) -> None:
     """Display a grid of images loaded from disk."""
