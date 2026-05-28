@@ -14,7 +14,7 @@ End-to-end computer vision pipeline that detects 10 object classes in very-high-
 
 ---
 
-![SkyWatch Demo](assets/demo.gif)
+https://huggingface.co/spaces/Utkarsh-DS/Skywatch-Detection
 
 ---
 
