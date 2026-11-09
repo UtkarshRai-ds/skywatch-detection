@@ -46,11 +46,11 @@ YOLOv8s wins on mAP50 (+0.8 pp) and recall (+5.6 pp) at the cost of 3.7× more p
 
 ## Project Highlights
 
-- **Full pipeline in one repo** — raw VOC XML annotations → YOLO labels → training → evaluation → interactive dashboard, all reproducible from a single clone.
-- **Rigorous data quality** — five automated checks (image counts, annotation parity, class coverage, readability, bbox coordinate validity) run before any model work.
-- **Dual-model comparison** — YOLOv8n and YOLOv8s trained under identical conditions; per-class AP deltas, speed/accuracy scatter, and confusion matrices surfaced in the dashboard.
-- **Bridge detection deep-dive** — the dominant class (29.5 % of annotations) achieves only 0.03 mAP50 due to elongated aspect ratios and severe background clutter; the dashboard exposes this failure mode explicitly.
-- **Production-ready CI/CD** — GitHub Actions runs pytest (40 tests) and flake8 on every push; the app is Dockerised for one-command deployment.
+- **Full pipeline in one repo**: Raw VOC XML annotations → YOLO labels → training → evaluation → interactive dashboard, all reproducible from a single clone.
+- **Rigorous data quality**: Five automated checks (image counts, annotation parity, class coverage, readability, bbox coordinate validity) run before any model work.
+- **Dual-model comparison**: YOLOv8n and YOLOv8s trained under identical conditions; per-class AP deltas, speed/accuracy scatter, and confusion matrices surfaced in the dashboard.
+- **Bridge detection deep-dive**: The dominant class (29.5 % of annotations) achieves only 0.03 mAP50 due to elongated aspect ratios and severe background clutter; the dashboard exposes this failure mode explicitly.
+- **Production-ready CI/CD**: GitHub Actions runs pytest (40 tests) and flake8 on every push; the app is Dockerised for one-command deployment.
 
 ---
 
